@@ -1,24 +1,40 @@
-<div class="container">
-    {{#error}}
-    <div class="error">
-        {{error}}
-    </div>
-    {{/error}}
-    {{#info}}
-    <div class="info">
-        {{info}}
-    </div>
-    {{/info}}
+<html>
+    <head>
+        <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            {{#error}}
+            <div class="error">
+                {{error}}
+            </div>
+            {{/error}}
+            {{#info}}
+            <div class="info">
+                {{info}}
+            </div>
+            {{/info}}
 
-    {{#showAllRequirements}}
-        {{>layout/requirements}}
-    {{/showAllRequirements}}
+            {{#showAllRequirements}}
+            {{>layout/requirements}}
+            {{/showAllRequirements}}
 
-    {{#showRequirementOverview}}
-        {{>layout/requirementOverview}}
-    {{/showRequirementOverview}}
+            {{#showRequirementOverview}}
+            {{>layout/requirementOverview}}
+            {{/showRequirementOverview}}
 
-    {{#showNewVersionForm}}
-        {{>layout/newVersionForm}}
-    {{/showNewVersionForm}}
-</div>
+            {{#showNewVersionForm}}
+            {{>layout/newVersionForm}}
+            {{/showNewVersionForm}}
+
+            {{#showVersionOverview}}
+            {{>layout/versionOverview}}
+            {{/showVersionOverview}}
+
+            {{#showVersionCompare}}
+            {{>layout/versionCompare}}
+            {{/showVersionCompare}}
+        </div>
+    </body>
+</html>
+

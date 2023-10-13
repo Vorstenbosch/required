@@ -18,6 +18,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
     runtimeOnly 'com.h2database:h2'
+    implementation "io.github.java-diff-utils:java-diff-utils:4.12"
 }
 
 test {

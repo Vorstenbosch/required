@@ -1,0 +1,21 @@
+<div class="versionOverview">
+    <h1>{{requirement.name}}</h1>
+    <h2>Version details</h2>
+    <p>{{version.id}}</p>
+    <p>{{version.creationTimestamp}}</p>
+    <h2>Description</h2>
+    <p>
+        {{#version.description}}
+            {{.}}<br/>
+        {{/version.description}}
+    </p>
+    <label for="version">Compare with:</label>
+    <form action="/ui/requirement/{{requirement.id}}/version/{{version.id}}/diff" method="post" id="compareForm">
+        <select name="version" id="version">
+            {{#versions}}
+            <option value="{{id}}">{{id}} | {{creationTimestamp}}</option>
+            {{/versions}}
+        </select>
+        <input type="submit" value="Compare"></input>
+    </form>
+</div>

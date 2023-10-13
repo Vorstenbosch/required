@@ -2,14 +2,21 @@
     <h1>{{requirement.name}}</h1>
     {{#latestVersion}}
     <h2>Latest version</h2>
-    <p>{{latestVersion}}</p>
+    <md-block>
+        {{#latestVersionDescription}}
+        {{.}}
+
+        {{/latestVersionDescription}}
+    </md-block>
     {{/latestVersion}}
     <table>
         <tr>
-            <th>Version</th>
+            <th>Id</th>
+            <th>Creation Timestamp</th>
         </tr>
         {{#versions}}
         <tr>
+            <td><a href="/ui/requirement/{{requirement.id}}/version/{{id}}">{{id}}</a></td>
             <td><a href="/ui/requirement/{{requirement.id}}/version/{{id}}">{{creationTimestamp}}</a></td>
         </tr>
         {{/versions}}

@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 public class Version {
@@ -17,7 +18,8 @@ public class Version {
 
     @CreationTimestamp
     private Instant creationTimestamp;
-    private String  description;
+    @ElementCollection(targetClass=String.class)
+    private List<String> description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -34,7 +36,7 @@ public class Version {
         return creationTimestamp;
     }
 
-    public String getDescription() {
+    public List<String> getDescription() {
         return description;
     }
 
@@ -42,7 +44,7 @@ public class Version {
         return requirement;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(List<String> description) {
         this.description = description;
     }
 

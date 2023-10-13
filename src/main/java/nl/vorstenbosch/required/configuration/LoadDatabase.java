@@ -10,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
@@ -17,13 +19,7 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(RequirementRepository requirementRepository, VersionRepository versionRepository) {
         return args -> {
-            Requirement requirement = new Requirement("UI color scheme");
-            Version version = new Version();
-            version.setDescription("Colors scheme consist only of white, blue and red");
-            version.setRequirement(requirement);
-
-            log.info("Preloading " + requirementRepository.save(requirement));
-            log.info("Preloading " + versionRepository.save(version));
+            log.info("Preloading " + requirementRepository.save(new Requirement("UI color scheme")));
             log.info("Preloading " + requirementRepository.save(new Requirement("Login")));
         };
     }
