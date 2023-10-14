@@ -1,7 +1,7 @@
 <div class="versionCompare">
-    <h1>{{requirement.name}}</h1>
-    <div class="diff">
-        <h2>Comparing versions</h2>
+    <h2 class="subtitle">{{requirement.name}}</h2>
+    <span class="is-size-6 is-italic">Comparing versions</span>
+    <div class="box">
         <table>
             <tr>
                 <th>{{versionLeft.id}} ({{versionLeft.creationTimestamp}})</th>
@@ -9,8 +9,16 @@
             </tr>
             {{#diffRows}}
             <tr>
-                <td><md-block>{{newLine}}</md-block></td>
-                <td><md-block>{{oldLine}}</md-block></td>
+                <td>
+                    <div class="content">
+                        <md-block>{{newLine}}</md-block>
+                    </div>
+                </td>
+                <td>
+                    <div class="content">
+                        <md-block>{{oldLine}}</md-block>
+                    </div>
+                </td>
             </tr>
             {{/diffRows}}
         </table>

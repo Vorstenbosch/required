@@ -1,39 +1,58 @@
 <html>
     <head>
+        <!-- TODO: add via resources -->
         <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+        <link rel="stylesheet" href="/css/bulma.min.css"></link>
+        <link rel="stylesheet" href="/css/main.css"></link>
+        <link rel="stylesheet" href="/css/materialdesignicons.min.css"></link>
     </head>
     <body>
         <div class="container">
-            {{#error}}
-            <div class="error">
-                {{error}}
+            <div class="columns is-vcentered">
+                <div class="column is-full">
+                    {{>layout/navBar}}
+                    {{#error}}
+                        <span class="icon-text has-text-danger">
+                          <span class="icon">
+                            <i class="fas fa-ban"></i>
+                          </span>
+                          <span>{{error}}</span>
+                        </span>
+                    {{/error}}
+                    {{#info}}
+                        <span class="icon-text has-text-success">
+                          <span class="icon">
+                            <i class="fas fa-check-square"></i>
+                          </span>
+                          <span> {{info}}</span>
+                        </span>
+                    {{/info}}
+
+                    {{#showAllRequirements}}
+                    {{>layout/requirements}}
+                    {{/showAllRequirements}}
+
+                    {{#showRequirementOverview}}
+                    {{>layout/requirementOverview}}
+                    {{/showRequirementOverview}}
+
+                    {{#showNewVersionForm}}
+                    {{>layout/newVersionForm}}
+                    {{/showNewVersionForm}}
+
+                    {{#showNewRequirementForm}}
+                    {{>layout/newRequirementForm}}
+                    {{/showNewRequirementForm}}
+
+                    {{#showVersionOverview}}
+                    {{>layout/versionOverview}}
+                    {{/showVersionOverview}}
+
+                    {{#showVersionCompare}}
+                    {{>layout/versionCompare}}
+                    {{/showVersionCompare}}
+                </div>
             </div>
-            {{/error}}
-            {{#info}}
-            <div class="info">
-                {{info}}
-            </div>
-            {{/info}}
-
-            {{#showAllRequirements}}
-            {{>layout/requirements}}
-            {{/showAllRequirements}}
-
-            {{#showRequirementOverview}}
-            {{>layout/requirementOverview}}
-            {{/showRequirementOverview}}
-
-            {{#showNewVersionForm}}
-            {{>layout/newVersionForm}}
-            {{/showNewVersionForm}}
-
-            {{#showVersionOverview}}
-            {{>layout/versionOverview}}
-            {{/showVersionOverview}}
-
-            {{#showVersionCompare}}
-            {{>layout/versionCompare}}
-            {{/showVersionCompare}}
         </div>
     </body>
 </html>

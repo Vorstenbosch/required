@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,8 +39,7 @@ public class UserInterface {
 
     @GetMapping(path = "ui")
     public ModelAndView listRequirements(Map<String, Object> model) {
-        model.put("requirements", requirementRepository.findAll());
-        model.put("showAllRequirements", true);
+        prepareAllRequirementsList(model);
         return new ModelAndView("index", model);
     }
 
@@ -48,7 +48,7 @@ public class UserInterface {
         Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(id));
         if (requirementOptional.isPresent()) {
             log.info("requirement found: {}", requirementOptional.get());
-            model = prepareRequirementOverviewModel(model, requirementOptional.get());
+            prepareRequirementOverviewModel(model, requirementOptional.get());
         } else {
             model.put("error", String.format("requirement with id '%s' does not exist", id));
         }
@@ -74,6 +74,20 @@ public class UserInterface {
         return new ModelAndView("index", model);
     }
 
+    @GetMapping(path = "/ui/requirement")
+    public ModelAndView showNewRequirementForm(Map<String, Object> model) {
+        model.put("showNewRequirementForm", true);
+        return new ModelAndView("index", model);
+    }
+
+    @PostMapping(path = "/ui/requirement")
+    public ModelAndView showNewRequirementForm(@ModelAttribute Requirement requirement, Map<String, Object> model) {
+        model.put("info", String.format("Requirement '%s' created", requirement.getName()));
+        requirementRepository.save(requirement);
+        prepareAllRequirementsList(model);
+        return new ModelAndView("index", model);
+    }
+
     @PostMapping(path = "/ui/requirement/{id}/version")
     public ModelAndView createNewVersion(@PathVariable String id, Map<String, Object> model, @ModelAttribute CreateVersionData data) {
         log.info(String.format("model received: %s", model));
@@ -86,7 +100,7 @@ public class UserInterface {
             version = versionRepository.save(version);
             model.put("info", String.format("New version created on '%s' for requirement '%s' created", version.getCreationTimestamp(), requirement.getName()));
             requirement.setLatestVersion(version);
-            model = prepareRequirementOverviewModel(model, requirement);
+            prepareRequirementOverviewModel(model, requirement);
         } else {
             model.put("error", String.format("requirement with id '%s' does not exist", id));
             model.put("requirements", requirementRepository.findAll());
@@ -138,7 +152,7 @@ public class UserInterface {
         return new ModelAndView("index", model);
     }
 
-    private Map<String, Object> prepareRequirementOverviewModel(Map<String, Object> model, Requirement requirement) {
+    private void prepareRequirementOverviewModel(Map<String, Object> model, Requirement requirement) {
         log.info("preparing requirement overview for {}", requirement);
         model.put("requirement", requirement);
         model.put("showRequirementOverview", true);
@@ -148,9 +162,14 @@ public class UserInterface {
             model.put("latestVersionDescription", requirement.getLatestVersion().getDescription());
         }
 
-        model.put("versions", versionRepository.findByRequirement(requirement));
+        List<Version> versions = versionRepository.findByRequirement(requirement);
+        model.put("noVersions", !versions.isEmpty());
+        model.put("versions", versions);
+    }
 
-        return model;
+    private void prepareAllRequirementsList(Map<String, Object> model) {
+        model.put("requirements", requirementRepository.findAll());
+        model.put("showAllRequirements", true);
     }
 }
 

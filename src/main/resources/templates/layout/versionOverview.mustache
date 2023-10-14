@@ -4,11 +4,13 @@
     <p>{{version.id}}</p>
     <p>{{version.creationTimestamp}}</p>
     <h2>Description</h2>
-    <p>
-        {{#version.description}}
-            {{.}}<br/>
-        {{/version.description}}
-    </p>
+    <div class="content">
+        <md-block>
+            {{#version.description}}
+            {{.}}
+            {{/version.description}}
+        </md-block>
+    </div>
     <label for="version">Compare with:</label>
     <form action="/ui/requirement/{{requirement.id}}/version/{{version.id}}/diff" method="post" id="compareForm">
         <select name="version" id="version">

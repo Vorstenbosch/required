@@ -1,14 +1,17 @@
-<div class="requirements">
-    <table>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-        </tr>
-    {{#requirements}}
-        <tr>
-            <td><a href="/ui/requirement/{{id}}">{{id}}</a></td>
-            <td><a href="/ui/requirement/{{id}}">{{name}}</a></td>
-        </tr>
-    {{/requirements}}
-    </table>
+<div class="requirements mt-5">
+    <div>
+        <table class="table is-striped table is-hoverable">
+            <tr>
+                <th>Requirements</th>
+            </tr>
+            {{#requirements}}
+            <tr>
+                <td><a href="/ui/requirement/{{id}}">{{name}}</a></td>
+            </tr>
+            {{/requirements}}
+        </table>
+    </div>
+    <div class="mt-5">
+        <input type="button" class="button" value="Create a new requirement" onclick="location.href='/ui/requirement'"></input>
+    </div>
 </div>
