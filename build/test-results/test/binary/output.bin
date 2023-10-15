@@ -1,2 +1,0 @@
-¶19:45:30.292 [Test worker] INFO nl.vorstenbosch.required.util.DiffUtils - diff created: [[CHANGE,This is a line of text.,This is a line of **text. Now it contains two sentences**]]
-—19:45:30.305 [Test worker] INFO nl.vorstenbosch.required.util.DiffUtils - diff created: [[CHANGE,This is a line of text,This is a line of **text.**]]

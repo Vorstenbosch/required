@@ -48,4 +48,8 @@ public class Requirement {
     public void setLatestVersion(Version version) {
         this.latestVersion = version;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

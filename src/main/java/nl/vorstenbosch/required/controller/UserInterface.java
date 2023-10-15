@@ -31,19 +31,14 @@ public class UserInterface {
     private VersionRepository versionRepository;
 
     private static final Logger log = LoggerFactory.getLogger(UserInterface.class);
-
+    
     @GetMapping
-    public RedirectView root() {
-        return new RedirectView("ui");
-    }
-
-    @GetMapping(path = "ui")
     public ModelAndView listRequirements(Map<String, Object> model) {
         prepareAllRequirementsList(model);
         return new ModelAndView("index", model);
     }
 
-    @GetMapping(path = "ui/requirement/{id}")
+    @GetMapping(path = "requirement/{id}")
     public ModelAndView requirementOverview(@PathVariable String id, Map<String, Object> model) {
         Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(id));
         if (requirementOptional.isPresent()) {
@@ -57,7 +52,7 @@ public class UserInterface {
         return new ModelAndView("index", model);
     }
 
-    @GetMapping(path = "/ui/requirement/{id}/version")
+    @GetMapping(path = "requirement/{id}/version")
     public ModelAndView showNewVersionForm(@PathVariable String id, Map<String, Object> model) {
         Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(id));
         if (requirementOptional.isPresent()) {
@@ -74,13 +69,59 @@ public class UserInterface {
         return new ModelAndView("index", model);
     }
 
-    @GetMapping(path = "/ui/requirement")
+    @GetMapping(path = "requirement")
     public ModelAndView showNewRequirementForm(Map<String, Object> model) {
         model.put("showNewRequirementForm", true);
         return new ModelAndView("index", model);
     }
 
-    @PostMapping(path = "/ui/requirement")
+    @GetMapping(path = "requirement/{id}/edit")
+    public ModelAndView showEditRequirementForm(@PathVariable String id, Map<String, Object> model) {
+        Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(id));
+        if (requirementOptional.isPresent()) {
+            Requirement requirement = requirementOptional.get();
+            model.put("showEditRequirementForm", true);
+            model.put("requirement", requirement);
+            if (requirement.getLatestVersion() != null) {
+                model.put("previousVersion", ListToStringWithNewLines(requirement.getLatestVersion().getDescription()));
+            }
+        } else {
+            model.put("error", String.format("requirement with id '%s' does not exist", id));
+        }
+
+        return new ModelAndView("index", model);
+    }
+
+    @PostMapping(path = "requirement/{id}/edit")
+    public ModelAndView editRequirementForm(@PathVariable String id, @ModelAttribute Requirement requirement, Map<String, Object> model) {
+        log.info("requirement received for edit: {}", requirement);
+        Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(id));
+        if (requirementOptional.isPresent()) {
+            // for some reason the id is not in the object
+            requirement.setId(Long.valueOf(id));
+            requirementRepository.save(requirement);
+        } else {
+            model.put("error", String.format("Failed to edit requirement with id '%s'", id));
+        }
+
+        prepareAllRequirementsList(model);
+        return new ModelAndView("index", model);
+    }
+
+    @GetMapping(path = "requirement/{id}/delete")
+    public ModelAndView deleteRequirementForm(@PathVariable String id, Map<String, Object> model) {
+        Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(id));
+        if (requirementOptional.isPresent()) {
+            requirementRepository.delete(requirementOptional.get());
+        } else {
+            model.put("error", String.format("Failed to delete requirement with id '%s'", id));
+        }
+
+        prepareAllRequirementsList(model);
+        return new ModelAndView("index", model);
+    }
+
+    @PostMapping(path = "/requirement")
     public ModelAndView showNewRequirementForm(@ModelAttribute Requirement requirement, Map<String, Object> model) {
         model.put("info", String.format("Requirement '%s' created", requirement.getName()));
         requirementRepository.save(requirement);
@@ -88,7 +129,7 @@ public class UserInterface {
         return new ModelAndView("index", model);
     }
 
-    @PostMapping(path = "/ui/requirement/{id}/version")
+    @PostMapping(path = "/requirement/{id}/version")
     public ModelAndView createNewVersion(@PathVariable String id, Map<String, Object> model, @ModelAttribute CreateVersionData data) {
         log.info(String.format("model received: %s", model));
         Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(id));
@@ -110,7 +151,7 @@ public class UserInterface {
         return new ModelAndView("index", model);
     }
 
-    @GetMapping(path = "/ui/requirement/{requirementId}/version/{versionId}")
+    @GetMapping(path = "/requirement/{requirementId}/version/{versionId}")
     public ModelAndView showVersionOverview(@PathVariable String requirementId, @PathVariable String versionId, Map<String, Object> model) {
         Optional<Requirement> requirementOptional = requirementRepository.findById(Long.valueOf(requirementId));
         Optional<Version> versionOptional = versionRepository.findById(Long.valueOf(versionId));
@@ -131,7 +172,7 @@ public class UserInterface {
         return new ModelAndView("index", model);
     }
 
-    @PostMapping(path = "/ui/requirement/{requirementId}/version/{versionId}/diff")
+    @PostMapping(path = "/requirement/{requirementId}/version/{versionId}/diff")
     public ModelAndView compareVersions(@PathVariable String requirementId, @PathVariable String versionId, Map<String, Object> model, @ModelAttribute Version version) {
         log.info("model received: {}", version);
         Optional<Version> versionLeftOptional = versionRepository.findById(Long.valueOf(versionId));

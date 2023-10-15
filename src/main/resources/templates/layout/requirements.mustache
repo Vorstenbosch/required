@@ -3,15 +3,17 @@
         <table class="table is-striped table is-hoverable">
             <tr>
                 <th>Requirements</th>
+                <th></th>
             </tr>
             {{#requirements}}
             <tr>
-                <td><a href="/ui/requirement/{{id}}">{{name}}</a></td>
+                <td><a href="/requirement/{{id}}">{{name}}</a></td>
+                <td><a href="/requirement/{{id}}/edit" ><span class="icon"><i class="is-medium mdi mdi-note-edit-outline mdi-24px"></i></span></a><a href="/requirement/{{id}}/delete" class="ml-3"><span class="icon"><i class="is-medium mdi mdi-trash-can-outline mdi-24px"></i></span></a></td>
             </tr>
             {{/requirements}}
         </table>
     </div>
     <div class="mt-5">
-        <input type="button" class="button" value="Create a new requirement" onclick="location.href='/ui/requirement'"></input>
+        <input type="button" class="button" value="Create a new requirement" onclick="location.href='/requirement'"></input>
     </div>
 </div>

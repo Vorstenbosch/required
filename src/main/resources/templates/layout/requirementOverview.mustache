@@ -24,14 +24,14 @@
                 </tr>
                 {{#versions}}
                 <tr>
-                    <td><a href="/ui/requirement/{{requirement.id}}/version/{{id}}">{{id}}</a></td>
-                    <td><a href="/ui/requirement/{{requirement.id}}/version/{{id}}">{{creationTimestamp}}</a></td>
+                    <td><a href="/requirement/{{requirement.id}}/version/{{id}}">{{id}}</a></td>
+                    <td><a href="/requirement/{{requirement.id}}/version/{{id}}">{{creationTimestamp}}</a></td>
                 </tr>
                 {{/versions}}
             </table>
         {{/hasVersions}}
     </div>
     <div class="mt-5">
-        <input type="button" class="button" value="Create new version" onclick="location.href='/ui/requirement/{{requirement.id}}/version'"></input>
+        <input type="button" class="button" value="Create new version" onclick="location.href='/requirement/{{requirement.id}}/version'"></input>
     </div>
 </div>

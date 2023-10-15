@@ -1,0 +1,20 @@
+<div class="editRequirement">
+    <h2 class="subtitle">Create a new requirement</h2>
+    <form action="/requirement/{{requirement.id}}/edit" method="post">
+        <div class="field">
+            <label class="label">Id</label>
+            <div class="control">
+                <input class="input" disabled="true" type="text" name="id" id="id" value="{{requirement.id}}"></input>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" name="name" id="name" value="{{requirement.name}}"></input>
+            </div>
+        </div>
+        <div class="control">
+            <input type="submit" class="button" value="Submit"/>
+        </div>
+    </form>
+</div>
