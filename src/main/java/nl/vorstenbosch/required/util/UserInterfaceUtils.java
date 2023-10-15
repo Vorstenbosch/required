@@ -14,7 +14,7 @@ public class UserInterfaceUtils {
     public static List<String> parseDescription(String description) {
         log.info("description received: {}", description);
         List<String> descriptionAsList = new ArrayList<>();
-        Arrays.stream(description.split("\r\n")).forEach(line -> {
+        Arrays.stream(description.split("\\R")).forEach(line -> {
            descriptionAsList.add(line);
         });
 
@@ -25,11 +25,9 @@ public class UserInterfaceUtils {
     public static String ListToStringWithNewLines(List<String> description) {
         log.info("description as list received: {}", description);
         StringBuilder stringBuilder = new StringBuilder();
-        description.forEach(line -> {
-            stringBuilder.append(line + "\n");
-        });
+        description.forEach(line -> stringBuilder.append(line + "\r\n"));
 
-        if(stringBuilder.substring(stringBuilder.length() -2, stringBuilder.length()).equals("\n")) {
+        if(stringBuilder.substring(stringBuilder.length() -2, stringBuilder.length()).equals("\r\n")) {
             stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         }
 

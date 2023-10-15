@@ -163,7 +163,7 @@ public class UserInterface {
         }
 
         List<Version> versions = versionRepository.findByRequirement(requirement);
-        model.put("noVersions", !versions.isEmpty());
+        model.put("hasVersions", !versions.isEmpty());
         model.put("versions", versions);
     }
 

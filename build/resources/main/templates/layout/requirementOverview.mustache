@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="mt-5">
-        {{#noVersions}}
+        {{#hasVersions}}
             <h2 class="subtitle">All versions</h2>
             <table class="table is-striped table is-hoverable">
                 <tr>
@@ -29,7 +29,7 @@
                 </tr>
                 {{/versions}}
             </table>
-        {{/noVersions}}
+        {{/hasVersions}}
     </div>
     <div class="mt-5">
         <input type="button" class="button" value="Create new version" onclick="location.href='/ui/requirement/{{requirement.id}}/version'"></input>

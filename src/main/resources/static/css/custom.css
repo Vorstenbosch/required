@@ -1,0 +1,4 @@
+/* for borderless tables */
+.table.is-borderless td, .table.is-borderless th {
+ border: 0;
+}

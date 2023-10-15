@@ -1,23 +1,39 @@
 <div class="versionOverview">
-    <h1>{{requirement.name}}</h1>
-    <h2>Version details</h2>
-    <p>{{version.id}}</p>
-    <p>{{version.creationTimestamp}}</p>
-    <h2>Description</h2>
-    <div class="content">
-        <md-block>
-            {{#version.description}}
-            {{.}}
-            {{/version.description}}
-        </md-block>
+
+    <div class="mt-5">
+        <h2 class="subtitle">{{requirement.name}}</h2>
+        <span class="is-size-6 is-italic">Version details</span>
+        <p>Id: {{version.id}}</p>
+        <p>Creation Timestamp: {{version.creationTimestamp}}</p>
     </div>
-    <label for="version">Compare with:</label>
-    <form action="/ui/requirement/{{requirement.id}}/version/{{version.id}}/diff" method="post" id="compareForm">
-        <select name="version" id="version">
-            {{#versions}}
-            <option value="{{id}}">{{id}} | {{creationTimestamp}}</option>
-            {{/versions}}
-        </select>
-        <input type="submit" value="Compare"></input>
-    </form>
+    <div class="mt-5">
+        <h2 class="subtitle">Description</h2>
+        <div class="box">
+            <div class="content">
+                <md-block>
+                    {{#version.description}}
+                    {{.}}
+                    {{/version.description}}
+                </md-block>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <form action="/ui/requirement/{{requirement.id}}/version/{{version.id}}/diff" method="post" id="compareForm">
+            <div class="field">
+                <label class="label">Compare with:</label>
+                <div class="select">
+                    <select name="version" id="version">
+                        {{#versions}}
+                        <option value="{{id}}">{{id}} | {{creationTimestamp}}</option>
+                        {{/versions}}
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <input type="submit" class="button" value="Compare"/>
+            </div>
+        </form>
+    </div>
 </div>
