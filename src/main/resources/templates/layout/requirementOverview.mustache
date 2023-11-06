@@ -1,0 +1,37 @@
+<div class="requirementsOverview">
+    <div class="mt-5">
+        <h2 class="subtitle has-text-weight-bold">Requirement: {{requirement.name}}</h2>
+        {{#latestVersion}}
+        <span class="is-size-6 is-italic">Latest version</span>
+        <div class="box">
+            <div class="content">
+                <md-block>
+                    {{#latestVersionDescription}}
+                    {{.}}
+                    {{/latestVersionDescription}}
+                </md-block>
+            </div>
+            {{/latestVersion}}
+        </div>
+    </div>
+    <div class="mt-5">
+        {{#hasVersions}}
+            <h2 class="subtitle">All versions</h2>
+            <table class="table is-striped table is-hoverable">
+                <tr>
+                    <th>Id</th>
+                    <th>Creation Timestamp</th>
+                </tr>
+                {{#versions}}
+                <tr>
+                    <td><a href="/requirement/{{requirement.id}}/version/{{id}}">{{id}}</a></td>
+                    <td><a href="/requirement/{{requirement.id}}/version/{{id}}">{{creationTimestamp}}</a></td>
+                </tr>
+                {{/versions}}
+            </table>
+        {{/hasVersions}}
+    </div>
+    <div class="mt-5">
+        <input type="button" class="button" value="Create new version" onclick="location.href='/requirement/{{requirement.id}}/version'"></input>
+    </div>
+</div>

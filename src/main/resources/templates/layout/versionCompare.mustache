@@ -1,0 +1,26 @@
+<div class="versionCompare">
+    <h2 class="subtitle">{{requirement.name}}</h2>
+    <span class="is-size-6 is-italic">Comparing versions</span>
+    <div class="box">
+        <table class="table is-fullwidth is-borderless">
+            <tr>
+                <th>{{versionLeft.id}} ({{versionLeft.creationTimestamp}})</th>
+                <th>{{versionRight.id}} ({{versionRight.creationTimestamp}})</th>
+            </tr>
+            {{#diffRows}}
+            <tr>
+                <td>
+                    <div class="content">
+                        <md-block>{{newLine}}</md-block>
+                    </div>
+                </td>
+                <td>
+                    <div class="content">
+                        <md-block>{{oldLine}}</md-block>
+                    </div>
+                </td>
+            </tr>
+            {{/diffRows}}
+        </table>
+    </div>
+</div>

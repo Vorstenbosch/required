@@ -1,0 +1,14 @@
+<div class="createNewVersion">
+    <h2 class="subtitle">Create a new version for '{{requirement.name}}'</h2>
+    <form action="/requirement/{{requirement.id}}/version" method="post">
+        <div class="field">
+            <label class="label">Description</label>
+            <div class="control">
+                <textarea class="textarea is-large" id="description" name="description">{{#previousVersion}}{{previousVersion}}{{/previousVersion}}</textarea>
+            </div>
+        </div>
+        <div class="control">
+            <input type="submit" class="button" value="Submit"/>
+        </div>
+    </form>
+</div>
